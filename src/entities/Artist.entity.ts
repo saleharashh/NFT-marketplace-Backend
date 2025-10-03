@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'Artists' })
+@Entity({ name: 'Artist' })
 export class Artist {
   @PrimaryGeneratedColumn()
   id: number;
@@ -22,4 +22,10 @@ export class Artist {
 
   @Column()
   bio: string;
+
+  @Column({ nullable: true })
+  profileImage: string;
+
+  @Column({ nullable: true })
+  backgroundImage: string;
 }

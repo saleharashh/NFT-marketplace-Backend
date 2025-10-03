@@ -9,9 +9,15 @@ import { ArtistsModule } from '../artists/artists.module';
 import { Artist } from '../entities/Artist.entity';
 import { NftModule } from '../nft/nft.module';
 import { NFT } from 'src/entities/NFT.entity';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'uploads'),
+      serveRoot: '/uploads/',
+    }),
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',

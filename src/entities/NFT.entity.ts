@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'NFTs' })
+@Entity({ name: 'NFT' })
 export class NFT {
   @PrimaryGeneratedColumn()
   id: number;
@@ -22,6 +22,15 @@ export class NFT {
 
   @Column()
   orginalLink: string;
+
+  @Column({ nullable: true })
+  image: string;
+
+  @Column()
+  price: string;
+
+  @Column()
+  highestBid: string;
 
   @Column('text', { array: true })
   tagIds: string[];

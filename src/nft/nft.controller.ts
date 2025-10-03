@@ -1,29 +1,48 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { NftService } from './nft.service';
 import { NFT } from 'src/entities/NFT.entity';
-import { isString } from 'util';
-import { isStringObject } from 'util/types';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { resolve } from 'path';
 
 @Controller('nft')
 export class NftController {
   constructor(private nftService: NftService) {}
   @Get('getNftById')
-  getNftById() {
-    return this.nftService.getById(1);
+  async getNftById(@Query('id') id: number) {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    return this.nftService.getById(id);
   }
 
   @Post('insert')
-  insert(@Body() body: NFT) {
-    return this.nftService.insert(body);
+  @UseInterceptors(FileInterceptor('image'))
+  insert(@Body() body: NFT, @UploadedFile() image: Express.Multer.File) {
+    return this.nftService.insert(body, image);
   }
 
-  @Post('getByCreatorId')
-  getByCreatorId(@Body() body: { creatorId: string }) {
-    return this.nftService.getByCreatorId(body.creatorId);
+  @Get('getByCreatorId')
+  async getByCreatorId(@Query('creatorId') creatorId: string) {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    return this.nftService.getByCreatorId(creatorId);
   }
 
   @Get('getByOwnerId')
-  getByOwnerId(@Query('ownerId') ownerId: string) {
+  async getByOwnerId(@Query('ownerId') ownerId: string) {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     return this.nftService.getByOwnerId(ownerId);
+  }
+
+  @Get('getAllNfts')
+  async getAllNfts() {
+    // await new Promise((resolve)
+    return this.nftService.getAllNfts();
   }
 }
