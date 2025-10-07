@@ -11,6 +11,8 @@ import { NftModule } from '../nft/nft.module';
 import { NFT } from 'src/entities/NFT.entity';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { CollectionsModule } from 'src/collections/collections.module';
+import { Collection } from 'src/entities/Collections.entity';
 
 @Module({
   imports: [
@@ -26,12 +28,13 @@ import { join } from 'path';
       username: 'postgres',
       password: '83858385',
       database: 'NFTMarketplace',
-      entities: [User, Artist, NFT],
+      entities: [User, Artist, NFT, Collection],
       synchronize: true,
     }),
     AuthModule,
     ArtistsModule,
     NftModule,
+    CollectionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

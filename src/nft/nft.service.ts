@@ -107,6 +107,7 @@ export class NftService {
     for (let index = 0; index < 50; index++) {
       response.push({
         ...nfts[0],
+        id: index,
         artistName: artist?.name!,
         artistProfile: artist?.profileImage!,
       });
